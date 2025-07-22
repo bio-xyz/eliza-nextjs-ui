@@ -3,23 +3,20 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { TextareaWithActions } from '@/components/ui/textarea-with-actions';
+import { getAgentConfig } from '@/lib/agent-config';
 
 interface NewChatWelcomeProps {
   userId: string;
 }
 
-const SUGGESTED_PROMPTS = [
-  "What drug combinations show synergistic effects for longevity?",
-  "Analyze the latest research on NAD+ precursors",
-  "Design a compound targeting cellular senescence",
-  "Find clinical trials for age-related diseases",
-];
 
 export function NewChatWelcome({ userId }: NewChatWelcomeProps) {
   const router = useRouter();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [clickedPrompt, setClickedPrompt] = useState<string | null>(null);
+  const agentConfig = getAgentConfig();
+  const suggestedPrompts = agentConfig.content.examplePrompts;
 
 
 
@@ -100,10 +97,10 @@ export function NewChatWelcome({ userId }: NewChatWelcomeProps) {
       <div className="w-full max-w-2xl lg:max-w-3xl">
         <div className="text-center mb-6 sm:mb-8 lg:mb-10">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white mb-3 sm:mb-4 leading-tight">
-            Welcome to <span className="text-brand">AUBRAI</span>
+            Welcome to <span className="theme-primary">{agentConfig.name}</span>
           </h1>
           <p className="text-sm sm:text-base lg:text-lg text-zinc-600 dark:text-zinc-400 max-w-sm sm:max-w-md lg:max-w-xl mx-auto px-2 sm:px-0">
-            Your AI research assistant for longevity science and anti-aging research
+            {agentConfig.content.tagline}
           </p>
         </div>
 
@@ -112,11 +109,11 @@ export function NewChatWelcome({ userId }: NewChatWelcomeProps) {
             <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-zinc-900 dark:text-white mb-2 sm:mb-3">
               Try asking about:
             </h2>
-            <div className="w-8 sm:w-12 h-0.5 bg-brand mx-auto rounded-full"></div>
+            <div className="w-8 sm:w-12 h-0.5 theme-primary-bg mx-auto rounded-full"></div>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
-            {SUGGESTED_PROMPTS.map((prompt, index) => {
+            {suggestedPrompts.map((prompt, index) => {
               const isPromptLoading = clickedPrompt === prompt;
               return (
                 <button
@@ -126,19 +123,19 @@ export function NewChatWelcome({ userId }: NewChatWelcomeProps) {
                   className={`group relative p-4 sm:p-5 lg:p-6 text-left bg-white dark:bg-zinc-800 rounded-lg sm:rounded-xl  dark:border-zinc-600 transition-all duration-200 cursor-pointer ${
                     isLoading
                       ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:shadow-md hover:border-brand/30'
+                      : 'hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:shadow-md hover:border-agent-primary/30'
                   } ${
                     isPromptLoading
-                      ? 'bg-brand/10 border-brand/50 dark:bg-brand/20'
+                      ? 'bg-agent-primary/10 border-agent-primary/50 dark:bg-agent-primary/20'
                       : ''
                   }`}
                 >
                   <div className="flex items-start gap-2 sm:gap-3">
                     <div className="flex-shrink-0 flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5 mt-1">
                       {isPromptLoading ? (
-                        <div className="w-3 sm:w-4 h-3 sm:h-4 border-2 border-brand border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-3 sm:w-4 h-3 sm:h-4 border-2 border-agent-primary border-t-transparent rounded-full animate-spin"></div>
                       ) : (
-                        <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-brand rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 theme-primary-bg rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
                       )}
                     </div>
                     <div className="text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white leading-relaxed">
@@ -158,15 +155,15 @@ export function NewChatWelcome({ userId }: NewChatWelcomeProps) {
               onInputChange={(e) => setInput(e.target.value)}
               onSubmit={handleDirectSubmit}
               isLoading={isLoading}
-              placeholder="Ask me anything about longevity research, anti-aging therapies, or health optimization..."
+              placeholder={`Ask me anything about ${agentConfig.domain || 'any topic'}...`}
               disabled={isLoading}
             />
           </div>
           
           {/* Loading feedback */}
           {isLoading && (
-            <div className="flex items-center justify-center gap-2 text-brand text-sm">
-              <div className="w-4 h-4 border-2 border-brand border-t-transparent rounded-full animate-spin"></div>
+            <div className="flex items-center justify-center gap-2 theme-primary text-sm">
+              <div className="w-4 h-4 border-2 border-agent-primary border-t-transparent rounded-full animate-spin"></div>
               <span>Creating chat session...</span>
             </div>
           )}

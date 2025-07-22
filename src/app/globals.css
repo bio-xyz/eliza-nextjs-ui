@@ -326,12 +326,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Colors for AUBRAI */
+/* Agent Theme Colors - Dynamically injected by ThemeManager */
 :root {
-  --color-brand: #FF6E71;
-  --color-brand-hover: #FF5A5E;
-  --color-brand-light: #FFE8E8;
-  --color-brand-dark: #E55A5D;
+  /* Default fallback colors - will be overridden by ThemeManager */
+  --agent-primary: #3B82F6;
+  --agent-secondary: #10B981;
+  --agent-accent: #F59E0B;
+  
+  /* Legacy brand color support for compatibility */
+  --color-brand: var(--agent-primary);
+  --color-brand-hover: color-mix(in srgb, var(--agent-primary) 80%, black);
+  --color-brand-light: color-mix(in srgb, var(--agent-primary) 10%, white);
+  --color-brand-dark: color-mix(in srgb, var(--agent-primary) 70%, black);
   
   /* Font Variables */
   --font-geist: 'Geist', sans-serif;
@@ -339,7 +345,41 @@
   --font-inter: 'Inter', system-ui, sans-serif;
 }
 
-/* Define custom color utilities */
+/* Agent Theme Color Utilities */
+/* Primary color utilities */
+.theme-primary { color: var(--agent-primary); }
+.theme-primary-bg { background-color: var(--agent-primary); }
+.border-agent-primary { border-color: var(--agent-primary); }
+.ring-agent-primary { --tw-ring-color: var(--agent-primary); }
+
+/* Secondary color utilities */
+.theme-secondary { color: var(--agent-secondary); }
+.theme-secondary-bg { background-color: var(--agent-secondary); }
+.border-agent-secondary { border-color: var(--agent-secondary); }
+
+/* Accent color utilities */
+.theme-accent { color: var(--agent-accent, var(--agent-primary)); }
+.theme-accent-bg { background-color: var(--agent-accent, var(--agent-primary)); }
+
+/* Agent color with opacity support */
+.bg-agent-primary\/10 { background-color: color-mix(in srgb, var(--agent-primary) 10%, transparent); }
+.bg-agent-primary\/20 { background-color: color-mix(in srgb, var(--agent-primary) 20%, transparent); }
+.bg-agent-primary\/30 { background-color: color-mix(in srgb, var(--agent-primary) 30%, transparent); }
+.bg-agent-primary\/50 { background-color: color-mix(in srgb, var(--agent-primary) 50%, transparent); }
+.border-agent-primary\/30 { border-color: color-mix(in srgb, var(--agent-primary) 30%, transparent); }
+.border-agent-primary\/50 { border-color: color-mix(in srgb, var(--agent-primary) 50%, transparent); }
+
+/* Hover states */
+.hover\:theme-primary:hover { color: var(--agent-primary); }
+.hover\:theme-primary-bg:hover { background-color: var(--agent-primary); }
+.hover\:bg-agent-primary:hover { background-color: var(--agent-primary); }
+.hover\:border-agent-primary\/30:hover { border-color: color-mix(in srgb, var(--agent-primary) 30%, transparent); }
+
+/* Focus states */
+.focus\:ring-agent-primary:focus { --tw-ring-color: var(--agent-primary); }
+.focus\:border-agent-primary:focus { border-color: var(--agent-primary); }
+
+/* Legacy brand color support for compatibility */
 .text-brand { color: var(--color-brand); }
 .bg-brand { background-color: var(--color-brand); }
 .border-brand { border-color: var(--color-brand); }
@@ -347,19 +387,11 @@
 .hover\:text-brand:hover { color: var(--color-brand-hover); }
 .focus\:ring-brand:focus { --tw-ring-color: var(--color-brand); }
 .focus\:border-brand:focus { border-color: var(--color-brand); }
-
-/* Brand color with opacity */
-.bg-brand\/10 { background-color: rgb(255 110 113 / 0.1); }
-.bg-brand\/20 { background-color: rgb(255 110 113 / 0.2); }
-.bg-brand\/30 { background-color: rgb(255 110 113 / 0.3); }
-.bg-brand\/90 { background-color: rgb(255 110 113 / 0.9); }
-.border-brand\/30 { border-color: rgb(255 110 113 / 0.3); }
-.ring-brand\/20 { --tw-ring-color: rgb(255 110 113 / 0.2); }
-.hover\:border-brand\/30:hover { border-color: rgb(255 110 113 / 0.3); }
-
-/* Common spinner colors */
-.border-brand { border-color: var(--color-brand); }
-.border-b-2.border-brand { border-bottom-color: var(--color-brand); }
+.bg-brand\/10 { background-color: color-mix(in srgb, var(--agent-primary) 10%, transparent); }
+.bg-brand\/20 { background-color: color-mix(in srgb, var(--agent-primary) 20%, transparent); }
+.bg-brand\/30 { background-color: color-mix(in srgb, var(--agent-primary) 30%, transparent); }
+.border-brand\/30 { border-color: color-mix(in srgb, var(--agent-primary) 30%, transparent); }
+.border-brand\/50 { border-color: color-mix(in srgb, var(--agent-primary) 50%, transparent); }
 
 .prose :where(pre):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
   @apply !px-0 !py-0;

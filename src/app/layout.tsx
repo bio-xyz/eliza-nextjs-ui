@@ -8,6 +8,7 @@ import { Toaster } from '@/app/core/toaster';
 import { ConditionalHeader } from '@/components/layout/conditional-header';
 import { PrivyClientProvider } from './core/privy-client-provider';
 import { AuthWrapper } from '@/components/auth/auth-wrapper';
+import { AgentThemeProvider } from '@/components/providers/agent-theme-provider';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -89,12 +90,14 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <PrivyClientProvider>
-                <AuthWrapper>
-                  <ConditionalHeader />
-                  {children}
-                </AuthWrapper>
-              </PrivyClientProvider>
+              <AgentThemeProvider>
+                <PrivyClientProvider>
+                  <AuthWrapper>
+                    <ConditionalHeader />
+                    {children}
+                  </AuthWrapper>
+                </PrivyClientProvider>
+              </AgentThemeProvider>
             </ThemeProvider>
           </div>
         </div>

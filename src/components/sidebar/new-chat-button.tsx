@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useUserManager } from '@/lib/user-manager';
 import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getAgentConfig } from '@/lib/agent-config';
 
 interface NewChatButtonProps {
   onNewChat?: () => void;
@@ -22,6 +23,8 @@ export function NewChatButton({ onNewChat, isCollapsed = false }: NewChatButtonP
   const handleCreateNewSession = useCallback(async () => {
     if (!userId) return;
 
+    const agentConfig = getAgentConfig();
+
     try {
       setIsCreatingSession(true);
       setError(null);
@@ -33,7 +36,7 @@ export function NewChatButton({ onNewChat, isCollapsed = false }: NewChatButtonP
         },
         body: JSON.stringify({
           userId,
-          initialMessage: "I'm AUBRAI, here to help with longevity research and biological aging interventions. What research question can I explore for you today?",
+          initialMessage: agentConfig.content.welcomeMessage,
         }),
       });
 

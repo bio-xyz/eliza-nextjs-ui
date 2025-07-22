@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, LogIn, User, ChevronDown, Settings, LogOut } from 'lucide-react';
 import { usePrivy } from '@privy-io/react-auth';
 import { cn } from '@/lib/utils';
+import { getAgentConfig } from '@/lib/agent-config';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { login, logout, authenticated, user, ready } = usePrivy();
+  const agentConfig = getAgentConfig();
 
   useEffect(() => {
     if (authenticated && user?.id) {
@@ -53,8 +55,8 @@ export function Header() {
       <div className="flex items-center justify-between lg:hidden p-4">
         <Link href="/">
           <Image 
-            src="/assets/aubrai_logo_white.png" 
-            alt="AUBRAI Logo" 
+            src={agentConfig.assets.logo} 
+            alt={`${agentConfig.name} Logo`} 
             width={120} 
             height={32} 
             className="h-8 w-auto" 
@@ -76,7 +78,7 @@ export function Header() {
         'overflow-hidden transition-all lg:hidden',
         isOpen ? 'max-h-screen p-4 flex flex-col gap-6 bg-black' : 'max-h-0'
       )}>
-        <NavLink to="/chat" label="AUBRAI" mobile pathname={pathname} onClick={() => setIsOpen(false)} />
+        <NavLink to="/chat" label={agentConfig.name} mobile pathname={pathname} onClick={() => setIsOpen(false)} />
         
         {ready && authenticated ? (
           <div className="flex flex-col gap-2">
@@ -123,8 +125,8 @@ export function Header() {
       <div className="hidden lg:flex items-center justify-between w-full py-3 px-8">
         <Link href="/">
           <Image 
-            src="/assets/aubrai_logo_white.png" 
-            alt="AUBRAI Logo" 
+            src={agentConfig.assets.logo} 
+            alt={`${agentConfig.name} Logo`} 
             width={160} 
             height={32} 
             className="h-8 w-auto" 
@@ -135,7 +137,7 @@ export function Header() {
           <div className="flex items-center gap-8">
             {/* Nav links container */}
             <div className="flex items-center gap-6">
-              <NavLink to="/chat" label="AUBRAI" pathname={pathname} />
+              <NavLink to="/chat" label={agentConfig.name} pathname={pathname} />
               <a
                 href="https://vitadao.notion.site/214a76ee454a806b945ec897362aec0d?pvs=105"
                 target="_blank"
@@ -189,7 +191,7 @@ const NavLink = ({ to, label, pathname, mobile, onClick }: NavLinkProps) => {
         href={to}
         className={cn(
           'text-center py-3 hover:opacity-80 transition-opacity uppercase text-xs font-inherit min-h-[44px] flex items-center justify-center touch-manipulation',
-          isActive ? 'text-[#FF6E71]' : 'text-white'
+          isActive ? 'theme-primary' : 'text-white'
         )}
         onClick={handleClick}
       >
