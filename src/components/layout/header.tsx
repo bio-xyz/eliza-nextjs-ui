@@ -51,7 +51,7 @@ export function Header() {
       <div className="flex items-center justify-between lg:hidden p-4">
         <Link href="/">
           <Image
-            src="/assets/aubrai_logo_white.png"
+            src="https://placehold.co/120x32/1a1a1a/ffffff.png?text=AUBRAI&font=roboto"
             alt="AUBRAI Logo"
             width={120}
             height={32}
@@ -131,7 +131,7 @@ export function Header() {
       <div className="hidden lg:flex items-center justify-between w-full py-3 px-8">
         <Link href="/">
           <Image
-            src="/assets/aubrai_logo_white.png"
+            src="https://placehold.co/160x32/1a1a1a/ffffff.png?text=AUBRAI&font=roboto"
             alt="AUBRAI Logo"
             width={160}
             height={32}

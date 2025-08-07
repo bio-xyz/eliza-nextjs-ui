@@ -24,6 +24,7 @@ export function SidebarHeader({
 
   const sidebarConfig = useUIConfigSection('sidebar');
   const brandingConfig = useUIConfigSection('branding');
+  const seoConfig = useUIConfigSection('seo');
 
   const handleLogoClick = () => {
     router.push('/chat');
@@ -41,19 +42,14 @@ export function SidebarHeader({
           onClick={handleLogoClick}
           className="flex items-center gap-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg p-2 -m-2 transition-colors cursor-pointer"
         >
-          <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
+          <div className="w-24 h-12 flex items-center justify-center flex-shrink-0">
             <Image
-              src="/assets/logo_simple.png"
+              src={seoConfig.logoUrl || "/assets/logo_simple.png"}
               alt="Logo"
-              width={80}
-              height={80}
+              width={180}
+              height={48}
               className="object-contain"
             />
-          </div>
-          <div className="flex items-center min-w-0">
-            <h1 className="font-semibold text-zinc-900 dark:text-white leading-tight text-xl">
-              {brandingConfig.appName}
-            </h1>
           </div>
         </button>
       )}
@@ -69,7 +65,7 @@ export function SidebarHeader({
           >
             <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
               <Image
-                src="/assets/logo_simple.png"
+                src={seoConfig.logoUrl || "/assets/logo_simple.png"}
                 alt="Logo"
                 width={32}
                 height={32}

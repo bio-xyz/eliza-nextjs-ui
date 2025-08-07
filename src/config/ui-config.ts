@@ -198,8 +198,8 @@ const DEFAULT_CONFIG: UIConfig = {
       'longevity, anti-aging, AI research, health optimization, life extension, biotechnology',
     author: process.env.NEXT_PUBLIC_SEO_AUTHOR || 'AUBRAI Team',
     faviconUrl: process.env.NEXT_PUBLIC_FAVICON_URL || '/favicon.ico',
-    logoUrl: process.env.NEXT_PUBLIC_LOGO_URL || '/assets/logo_text.png',
-    ogImage: process.env.NEXT_PUBLIC_OG_IMAGE || '/og-image.png',
+    logoUrl: process.env.NEXT_PUBLIC_LOGO_URL || 'https://placehold.co/200x50/1a1a1a/ffffff.png?text=AUBRAI&font=roboto',
+    ogImage: process.env.NEXT_PUBLIC_OG_IMAGE || 'https://placehold.co/1200x630/1a1a1a/ffffff.png?text=Shared+Chat&font=roboto',
     twitterCard:
       (process.env.NEXT_PUBLIC_TWITTER_CARD as
         | 'summary'
@@ -294,14 +294,14 @@ const DEFAULT_CONFIG: UIConfig = {
   loginSlider: {
     showChatContent: process.env.NEXT_PUBLIC_LOGIN_SLIDER_SHOW_CHAT_CONTENT !== 'false',
     backgroundImage:
-      process.env.NEXT_PUBLIC_LOGIN_SLIDER_BACKGROUND_IMAGE || '/assets/aubrai-login-image.png',
+      process.env.NEXT_PUBLIC_LOGIN_SLIDER_BACKGROUND_IMAGE || 'https://placehold.co/800x600/1a1a1a/ffffff.png?text=Login+Background&font=roboto',
     backgroundAlt: process.env.NEXT_PUBLIC_LOGIN_SLIDER_BACKGROUND_ALT || 'Login background image',
     autoPlay: process.env.NEXT_PUBLIC_LOGIN_SLIDER_AUTO_PLAY !== 'false',
     interval: parseInt(process.env.NEXT_PUBLIC_LOGIN_SLIDER_INTERVAL || '6000'),
     transitionDuration: parseInt(process.env.NEXT_PUBLIC_LOGIN_SLIDER_TRANSITION_DURATION || '700'),
   },
   loginBranding: {
-    logoImage: process.env.NEXT_PUBLIC_LOGIN_LOGO_IMAGE || '/assets/logo_text.png',
+    logoImage: process.env.NEXT_PUBLIC_LOGIN_LOGO_IMAGE || 'https://placehold.co/180x45/1a1a1a/ffffff.png?text=AUBRAI&font=roboto',
     logoAlt: process.env.NEXT_PUBLIC_LOGIN_LOGO_ALT || 'AUBRAI Logo',
     logoWidth: parseInt(process.env.NEXT_PUBLIC_LOGIN_LOGO_WIDTH || '180'),
     logoHeight: parseInt(process.env.NEXT_PUBLIC_LOGIN_LOGO_HEIGHT || '45'),

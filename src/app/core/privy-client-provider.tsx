@@ -18,7 +18,7 @@ export function PrivyClientProvider({ children }: { children: React.ReactNode })
       appearance: {
         theme: 'dark',
         accentColor: '#FF6E71',
-        logo: '/assets/aubrai_logo_white.png',
+        logo: 'https://placehold.co/160x32/1a1a1a/ffffff.png?text=AUBRAI&font=roboto',
       },
       // Modal configuration
       modal: {

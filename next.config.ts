@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
     // Optimize bundling for faster builds
     optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   // Turbopack is now stable, moved from experimental.turbo
   turbopack: {
     rules: {

@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuthenticatedFetch } from '@/lib/authenticated-fetch';
 import { useUserManager } from '@/lib/user-manager';
+import { useUIConfigSection } from '@/hooks/use-ui-config';
 
 interface InviteCode {
   id: string;
@@ -78,6 +79,7 @@ export default function InvitesPage() {
   const { user } = usePrivy();
   const { getUserId } = useUserManager();
   const authenticatedFetch = useAuthenticatedFetch();
+  const brandingConfig = useUIConfigSection('branding');
   const [inviteStats, setInviteStats] = useState<UserInviteStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -236,7 +238,7 @@ export default function InvitesPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#FF6E71] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: brandingConfig.primaryColor }}>
               <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
@@ -262,7 +264,7 @@ export default function InvitesPage() {
             <h2 className="text-xl font-medium text-foreground">Invitation Codes</h2>
             {inviteStats && (
               <div className="flex items-center gap-2 text-sm bg-muted px-3 py-1.5 rounded-md font-medium">
-                <Badge className="w-4 h-4 text-[#FF6E71]" />
+                <Badge className="w-4 h-4" style={{ color: brandingConfig.primaryColor }} />
                 <span className="font-semibold">{inviteStats.remaining_codes}</span>
                 <span className="hidden sm:inline">codes remaining</span>
               </div>

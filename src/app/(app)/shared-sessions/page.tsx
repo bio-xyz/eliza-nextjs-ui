@@ -19,10 +19,12 @@ import Link from 'next/link';
 import { usePrivy } from '@privy-io/react-auth';
 import { cn } from '@/lib/utils';
 import { SharedSessionsList } from '@/components/shared-sessions/shared-sessions-list';
+import { useUIConfigSection } from '@/hooks/use-ui-config';
 
 export default function SharedSessionsPage() {
   const router = useRouter();
   const { user, ready, authenticated } = usePrivy();
+  const brandingConfig = useUIConfigSection('branding');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showHelp, setShowHelp] = useState(false);
@@ -81,7 +83,7 @@ export default function SharedSessionsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#FF6E71] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: brandingConfig.primaryColor }}>
               <Share2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
